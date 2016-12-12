@@ -1,0 +1,1336 @@
+%\documentclass[pdf,serpaggi,slideColor,colorBG]{prosper}
+\documentclass[smaller]{beamer}
+\mode<presentation>
+
+\usetheme{Madrid}
+%\beamertemplatefootpagenumber
+
+%\usepackage{graphics,graphicx}
+\usepackage{pgf}
+\usepackage{array,listings}
+%\usecolortheme{seahorse}
+%\usecolortheme{rose}
+%\usefonttheme[onlylarge]{structuresmallcapsserif}
+%\usefonttheme[onlysmall]{structurebold}
+%
+%\setbeamerfont{title}{shape=\itshape,family=\rmfamily}
+%\setbeamercolor{title}{fg=red!80!black}
+%\setbeamercolor{title}{fg=red!80!black,bg=red!20!white}
+
+%\usepackage[latin1]{inputenc}
+%\usepackage{pstricks,pst-node,pst-text,pst-3d}
+% pst* are for drawing within LaTeX
+
+%\newtheorem{defin}{Definition}%[section]
+%\newtheorem{theor}{Theorem}%[section]
+%\newtheorem{lemma}{Lemma}%[section]
+%\newtheorem{propo}{Proposition}%[section]
+%\newtheorem{corol}{Corollary}%[section]
+\newtheorem{remark}{Remark}%[section]
+%\newtheorem{examp}{Example}%[section]
+%\newenvironment{proof}
+%          {\noindent{\bf Proof}\ \ \ }{$\Box${\ }}
+
+
+\input macros
+\input macros_logic
+
+\newcommand{\la}{\leftarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lora}{\longrightarrow}
+\newcommand{\La}{\Leftarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\lla}{\longleftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Lra}{\Leftrightarrow}
+%\newcommand{\hra}{\hookrightarrow}
+\newcommand{\da}{\!\!\downarrow}
+\newcommand{\ua}{\!\!\uparrow}
+\newcommand{\ov}{\overline}
+\newcommand{\un}{\underline}
+\newcommand{\longra}{\longrightarrow}
+
+\newcommand{\state}[2]{{#1\parallel #2}}
+
+  \def\cA{{\cal A}}
+  \def\cB{{\cal B}}
+  \def\cC{{\cal C}}
+  \def\cD{{\cal D}}
+  \def\cE{{\cal E}}
+  \def\cF{{\cal F}}
+  \def\cI{{\cal I}}
+  \def\cK{{\cal K}}
+  \def\cL{{\cal L}}
+  \def\cM{{\cal M}}
+  \def\cN{{\cal N}}
+  \def\cO{{\cal O}}
+  \def\cP{{\cal P}}
+  \def\cQ{{\cal Q}}
+  \def\cR{{\cal R}}
+  \def\cS{{\cal S}}
+  \def\cT{{\cal T}}
+  \def\cV{{\cal V}}
+
+  \def\bA{{\bf A}}
+  \def\bB{{\bf B}}
+  \def\bC{{\bf C}}
+  \def\bD{{\bf D}}
+  \def\bF{{\bf F}}
+  \def\bE{{\bf E}}
+  \def\bG{{\bf G}}
+  \def\bH{{\bf H}}
+  \def\bI{{\bf I}}
+  \def\bP{{\bf P}}
+  \def\bL{{\bf L}}
+  \def\bN{{\bf N}}
+  \def\bQ{{\bf Q}}
+  \def\bR{{\bf R}}
+  \def\bS{{\bf S}}
+  \def\bT{{\bf T}}
+  \def\bX{{\bf X}}
+  \def\bU{{\bf U}}
+  \def\bV{{\bf V}}
+  \def\bZ{{\bf Z}}
+  \def\bbarX{\overline{{\bf X}}}
+	\def\bbarU{\overline{{\bf U}}}
+	\def\bbarR{\overline{{\bf R}}}
+  \def\bsA{{\scriptstyle A}} 
+  \def\bsB{{\scriptstyle B}}
+
+  \def\sN{{\scriptstyle N}}
+  \def\sZ{{\scriptstyle Z}}
+
+  \def\ga{{\bf a}}
+  \def\gb{{\bf b}}
+  \def\gc{{\bf c}}
+  \def\gd{{\bf d}}
+  \def\ge{{\bf e}}
+  \def\gf{{\bf f}}
+  
+  \def\ltl{\mathsf{LTL}}
+	\def\ltli{\mathsf{LTL_\infty}}
+	\def\ltlp{\mathsf{LTL^+}}
+	\def\ltlip{\mathsf{LTL_\infty^+}}
+  \def\kctlp*{\mathsf{KCTL^* P}}
+	\def\akctlp*{\mathsf{\forall KCTL^* P}}
+	\def\ekctlp*{\mathsf{\exists KCTL^* P}}
+	\newcommand{\Paths}{\mathsf{Paths}}
+	\newcommand{\Points}{\mathsf{Points}}
+	
+	\def\ltl{\mathsf{LTL}}
+	\def\ltli{\mathsf{LTL_\infty}}
+	\def\ltlp{\mathsf{LTL^+}}
+	\def\ltlip{\mathsf{LTL_\infty^+}}
+	
+%	\definecolor{red}{rgb}{255,0,0}
+	
+	\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+	\newcommand{\red}[1]{\textcolor{red}{#1}}
+	\newcommand{\green}[1]{\textcolor{teal}{#1}}
+
+\title[SMT solvers]{SMT solvers}
+\author{Constantin Enea}
+\institute[IRIF]{IRIF, University Paris Diderot - Paris 7}
+%					 
+%					 and \\ 
+%					 
+%							Department of Computer Science\\
+%              University ``Al.I.Cuza'' \\
+%             Iasi, Romania \\
+%             E-mail: \texttt{cenea@infoiasi.ro} \\
+%             \vspace{3mm}
+%             \hspace{-2.1cm}
+%             {\normalsize Supervisors: Anatol Slissenko, University Paris 12, France }\\
+%             \vspace{1mm}
+%             \hspace{1.65cm}	{\normalsize Ferucio Laurentiu Tiplea, University ``Al.I.Cuza'', Romania }}
+\date{ }
+%\slideCaption{C. Enea. 
+%      {\it Abstraction techniques for abstract data types}}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+
+
+%\section{SMT solvers}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Overview of SMT solving}
+\begin{itemize}
+\item \red{SMT solver = SAT solver + Theory solver}
+\vspace{2mm}
+\begin{itemize}
+\setlength\itemsep{2ex}
+\item the SAT solver enumerates possible truth assignments for atomic formulas
+\item the Theory solver checks whether some truth assignment is satisfiable in the
+considered theory (combination of theories)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Naive SMT solving}
+\[
+x+y\geq 0\land (x=z\limp z+y=-1)\land z>3t
+\]
+\begin{enumerate}
+\item replace atomic formulas by boolean variables:
+\[
+\begin{array}{ll}
+x+y\geq 0\mapsto a \quad\quad& z+y=-1\mapsto c\\[2mm]
+x=z\mapsto b \quad\quad& z>3t \mapsto d
+\end{array}
+\]
+\item use the SAT solver to get a satisfying assignment of $a\land (b\limp c)\land d$:
+\[
+\mbox{satisfying assignment: }a,b,c,d
+\]
+\item convert the satisfying assignment back to arithmetic:
+\[
+\underbrace{x+y\geq 0\land x=z\land z+y=-1}_{\red{\mbox{not consistent}}}\land z>3t
+\]
+\item feed the explanation to the SAT solver, i.e., add the clause $(\neg a\land \neg b\land \neg c)$
+\end{enumerate}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Naive SMT solving}
+\[
+x+y\geq 0\land (x=z\limp z+y=-1)\land z>3t
+\]
+\begin{enumerate}
+\item replace atomic formulas by boolean variables:
+\[
+\begin{array}{ll}
+x+y\geq 0\mapsto a \quad\quad& z+y=-1\mapsto c\\[2mm]
+x=z\mapsto b \quad\quad& z>3t \mapsto d 
+\end{array}
+\]
+
+\ldots
+\setcounter{enumi}{3}
+\item feed the explanation to the SAT solver, i.e., add the clause $(\neg a\land \neg b\land \neg c)$
+\item use the SAT solver to get a satisfying assignment of 
+\[
+a\land (b\limp c)\land d\land (\neg a\land \neg b\land \neg c)
+\]
+
+satisfying assignment: $a,\neg b,c,d$
+\item convert the satisfying assignment back to arithmetic:
+\[
+x+y\geq 0\land \neg (x=z)\land z+y=-1\land z>3t
+\quad\red{\mbox{satisfiable}}
+\]
+\end{enumerate}
+\end{frame}
+
+%\frame{\tableofcontents}
+
+\begin{frame}
+\frametitle{SMT solvers}
+\tableofcontents
+\end{frame}
+
+\section{DPLL SAT solvers}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Checking satisfiability of boolean formulas}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item one of the most important problems in complexity theory but also
+at the basis of many practical applications (e.g., Electronic Design Automation, 
+Verification, Artificial Intelligence)
+\item easier to check if we consider formulas in \red{normal form}:
+	\begin{itemize}
+	\setlength\itemsep{1mm}
+		\item Negation Normal Form (NNF)
+		\item Disjunctive Normal Form (DNF)
+		\item Conjunctive Normal Form (CNF)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Equivalent normal forms for boolean formulas}
+\onslide<1-3>{
+\red{Negation Normal Form (NNF):} negations appear only in literals
+\begin{itemize}
+\item $\neg q\land (r\vee \neg s)$ is in NNF; $p\vee \neg(\neg r\land s)$ is not in NNF
+\item conversion: $\neg\neg F \rightarrow F$, \  $\neg(F_1\land F_2)\rightarrow \neg F_1\vee\neg F_2$, \
+$\neg(F_1\land F_2)\rightarrow \neg F_1\vee\neg F_2$
+\end{itemize}}
+
+\onslide<2-3>{
+\medskip
+\red{Disjunctive Normal Form (DNF):} disjunctions of conjunctions of literals
+\begin{itemize}
+\item $(p\land q)\vee (\neg r\land s)$ is in DNF; $\neg q\land (r\vee \neg s)$ is not in DNF;
+\item conversion: convert to NNF and distribute $\land$ over $\vee$
+\end{itemize}}
+
+\onslide<3-3>{
+\medskip
+\red{Conjunctive Normal Form (CNF):}  conjunctions of disjunctions of literals
+\begin{itemize}
+\item $\neg q\land (r\vee \neg s)$ is in CNF; $\neg q\vee (r\land \neg s)$ is not in CNF;
+\item conversion: convert to NNF and distribute $\lor$ over $\land$
+\end{itemize}}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Checking satisfiability of DNF}
+\onslide<1-3>{
+\red{Claim} If a formula is in DNF, checking satisfiability is trivial}
+\onslide<2-3>{
+\begin{itemize}
+	\item there exists a clause which does not contain a literal and its negation
+\end{itemize}
+}
+
+\onslide<3-3>{
+\medskip
+\red{Checking satisfiability by converting to DNF is completely impractical.}
+\begin{itemize}
+	\item DNF conversion causes exponential blow-up in size !
+	\begin{itemize}
+		\item the DNF of $(F_1\vee F_2)\land (F_3\vee F_4)$ is 
+		\[
+		(F_1\land F_3)\vee (F_1\land F_4)\vee (F_2\land F_3)\vee (F_2\land F_4)
+		\]
+	\item almost as bad as truth tables !
+	\end{itemize}
+\end{itemize}
+
+}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Checking satisfiability of CNF}
+
+\begin{itemize}
+\setlength\itemsep{3mm}
+\item
+Unlike DNF, it is not trivial to determine satisfiability of CNF formulas
+
+\item
+Like DNF, CNF conversion cause exponential blow-up in size
+\end{itemize}
+
+\vspace{.5cm}
+\onslide<2-2>{
+\hspace{.8cm}
+\setbeamercolor{prog}{fg=black,bg=lightgray}
+\begin{beamercolorbox}[ht=1.4cm,center,wd=10cm]{prog}
+\red{Tseitin's transformation:} converts formula $F$ to \blue{equi-satisfiable}
+formula $F'$ in CNF with only a \red{linear} increase in size
+\vspace{3mm}
+\end{beamercolorbox}
+
+\begin{itemize}
+\item[]
+\begin{itemize}
+\item replace a sub-formula $\psi$ by a fresh variable $p$, then add clauses
+to express the constraint $p\equival \psi$
+\item Example: replace $(p_1\land p_2)$ by a fresh $p$ and add the clauses
+$(\neg p\vee p_1)$, $(\neg p\vee p_2)$, and $(p\vee \neg p_1\vee \neg p_2)$
+\end{itemize} 
+\end{itemize}
+
+}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Tseitin's transformation}
+\[
+\begin{array}{lcl}
+CNF(p,\Delta) & = & (p,\Delta) \\[1mm]
+CNF(\neg \varphi,\Delta) & = & (\neg l,\Delta'),\mbox{ where }(l,\Delta')=CNF(\varphi,\Delta) \\[1mm]
+CNF(\varphi_1\land\varphi_2,\Delta) & = & (p,\Delta'),\mbox{ where } \\[1mm]
+&& (l_1,\Delta_1)=CNF(\varphi_1,\Delta) \\[1mm]
+&& (l_2,\Delta_2)=CNF(\varphi_2,\Delta_1) \\[1mm]
+&&\mbox{$p$ is fresh} \\[1mm]
+&&\Delta' = \Delta_2\cup\{\neg p\vee l_1,\neg p\vee l_2,\neg l_1\vee \neg l_2\vee p\} \\[1mm]
+CNF(\varphi_1\lor\varphi_2,\Delta) & = & (p,\Delta'),\mbox{ where $\ldots$} \\[1mm]
+&&\Delta' = \Delta_2\cup\{\neg p\vee l_1\vee l_2,\neg l_1\vee p,\neg l_2\vee p\} \\[1mm]
+\end{array}
+\]
+\begin{theorem}
+If $CNF(\varphi,\emptyset)=(l,\Delta)$ then $\varphi$ and $l\land \Delta$ are equi-satisfiable.
+\end{theorem}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Tseitin's transformation - example}
+$CNF(\overbrace{{\color<2-2>{red}{\underbrace{(q_1\land r_1)}_{p_2}}}\vee {\color<1-1>{red}{\underbrace{(q_2\land r_2)}_{p_1}}}}^{p_3},\emptyset)=$
+
+\[
+\begin{array}{ll}
+(p_3, & \{ \onslide<1-3>{\color<1-1>{red}{\neg p_1\vee q_2,}\\[1mm]
+&{\color<1-1>{red}{ \neg p_1\vee r_2,}}\\[1mm]
+& {\color<1-1>{red}{ \neg q_2 \vee \neg r_2 \vee p_1,}}}\\[1mm]
+\onslide<2-3>{& \color<2-2>{red}{ \neg p_2\vee q_1,}\\[1mm]
+& {\color<2-2>{red}{\neg p_2\vee r_1,}}\\[1mm]
+& {\color<2-2>{red}{ \neg q_1 \vee \neg r_1 \vee p_2,}}}\\[1mm]
+\onslide<3-3>{& \color<3-3>{red}{ \neg p_3 \vee p_1 \vee p_2,}\\[1mm]
+&{\color<3-3>{red}{ \neg p_1\vee p_3,}}\\[1mm]
+&{\color<3-3>{red}{ \neg p_2\vee p_3}}}\})\\[1mm]
+\end{array}
+\]
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{DPLL [Davis and Putnam 1960; Davis et al 1962]}
+\begin{itemize}
+\item most state-of-the-art SAT solvers are based on variations of DPLL 
+\end{itemize}
+
+\vspace{2mm}
+\red{Search}
+
+\vspace{2mm}
+Find a satisfying assignment by searching through all possible assignments
+
+\vspace{2mm}
+\red{Deduction}
+
+\vspace{2mm}
+Apply proof rules to deduce new facts from a set of known facts
+
+\vspace{6mm}
+\red{DPLL} combines search and deduction in an effective way !
+
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Deduction in DPLL}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item Deductive principle underlying DPLL is \red{unit resolution}
+\vspace{4mm}
+\begin{itemize}
+	\setlength\itemsep{2mm}
+	\item $\red{C_1}: p$\hspace{2cm} $\red{C_2}: (l_1\vee\ldots \neg p\ldots \vee l_n)$
+	\item resolvent: $(l_1\vee\ldots\vee l_n)$
+\end{itemize}
+\item If we perform unit resolution using $C_1$ and $C_2$, we delete them and replace with
+resolvent
+\item \red{Boolean Constraint Propagation (BCP)} = all possible applications of unit resolution
+\end{itemize}
+
+\begin{example}
+\vspace{1mm}
+\begin{center}
+$
+(p)\land (\neg p\vee q)\land (r\vee \neg q\vee s)
+$
+\end{center}
+\begin{itemize}
+\item the resolvent of the first two clauses is $q$
+\item applying BCP, we obtain $q\land (r\vee \neg q\vee s)$
+\item the new resolvent is $(r\vee s)$.
+\end{itemize}
+\end{example}
+\end{frame}
+
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Pure literal propagation}
+\red{Pure literal propagation (PLP):}
+\vspace{4mm}
+\begin{itemize}
+\setlength\itemsep{4mm}
+\item If variable $p$ occurs only positively (i.e., the formula contains no $\neg p$) then
+$p$ must be set to $\top$
+\item If variable $p$ occurs only negatively (i.e., the formula contains no $p$) then
+$p$ must be set to $\bot$
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}[fragile]
+\frametitle{Basic DPLL}
+%    \lstset{numbers=left, 
+%            numberstyle=\tiny\tt,  %\tiny
+%            stepnumber=1, 
+%            firstnumber=1,
+%            numberfirstline=true,
+%            numbersep=4pt}
+\begin{lstlisting}[mathescape]
+bool DPLL($\varphi$) 
+{
+    1. $\varphi'$=BCP($\varphi$);
+    2. $\varphi''$=PLP($\varphi'$);
+    3. if ($\varphi''$ = $\top$) then return SAT;
+    4. else if ($\varphi''$ = $\bot$) then return UNSAT;
+    5. p = choose_var($\varphi''$);
+    6. if (DPLL($\varphi''$[$p\mapsto \top$]) then return SAT;
+    7. else return DPLL($\varphi''$[$p\mapsto \bot$]
+}
+\end{lstlisting}
+\end{frame}
+
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Basic DPLL - example}
+%\begin{itemize}
+%\item 
+%\end{itemize}
+%\end{frame}
+
+\section{Abstract DPLL}
+
+\begin{frame}
+\frametitle{SMT solvers}
+\tableofcontents[currentsection]
+\end{frame}
+
+
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL}
+\begin{itemize}
+\setlength\itemsep{4mm}
+\item During search, states of the DPLL procedure are of the form $\Box$ or $\state{M}{F}$
+\begin{itemize}
+	\item $M$ is a sequence of literals denoting a partial assignment (does not contain a literal and its negation)
+	\item $F$ is a CNF formula
+\end{itemize}
+\item Literals in $M$ are marked if they are decision literals or not ($l^d$ is a decision literal)
+\item A clause $C$ is conflicting in a state $\state{M}{F}$ if $M\models \neg C$ 
+\item the DPLL procedure is modeled as a transition system over states; $\Longrightarrow$ denotes the transition relation
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL}
+\small
+\[
+\begin{array}{lclcl}
+\red{\mbox{\tt Unit Propagate:}} \\
+\state{M}{F,C\vee l}&\Longrightarrow& \state{M\,l}{F,C\vee l} &\mbox{if} &\left\{\begin{array}{l}
+														      M\models \neg C\\
+														      \mbox{$l$ is undefined in $M$}																	      \end{array}\right. \\[2mm]
+\red{\mbox{\tt PLP:}} \\
+\state{M}{F}&\Longrightarrow& \state{M\,l}{F} &\mbox{if} &\left\{\begin{array}{l}
+												\mbox{$l$ occurs in some clause of $F$}\\
+												\mbox{$\neg l$ occurs in no clause of $F$} \\
+												\mbox{$l$ is undefined in $M$}
+												\end{array}\right. \\[2mm]
+\red{\mbox{\tt Decide:}} \\
+\state{M}{F}&\Longrightarrow& \state{M\,l^d}{F} &\mbox{if} &\left\{\begin{array}{l}
+												\mbox{$l$ or $\neg l$ occurs in a clause of $F$}\\
+												\mbox{$l$ is undefined in $M$}
+												\end{array}\right. \\[2mm]
+\red{\mbox{\tt Fail:}} \\
+\state{M}{F,C}&\Longrightarrow& \Box &\mbox{if} &\left\{\begin{array}{l}
+											M\models \neg C\\
+											\mbox{$M$ contains no decision literals}															        \end{array}\right. \\[2mm]
+\red{\mbox{\tt Backtrack:}} \\
+\state{M\, l^d\, N}{F,C}&\Longrightarrow& \state{M\,\neg l}{F,C} &\mbox{if} &\left\{\begin{array}{l}
+														      M\, l^d\, N\models \neg C\\
+														      \mbox{$N$ contains no decision literals}															     \end{array}\right. 
+\end{array}
+\]
+Check satisfiability: generate derivation $\state{\emptyset}{F}\Longrightarrow\ldots\Longrightarrow S_f$, where $S_f$ is final w.r.t $\Longrightarrow$
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL - example}
+\[
+\begin{array}{lclcl}
+\onslide<1-9>{
+\emptyset &\parallel & \overline{1}\vee \overline{2},\ 2\vee 3,\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]}
+\onslide<2-9>{
+1^d &\parallel & \red{\overline{1}\vee \overline{2}},\ 2\vee 3,\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<3-9>{
+1^d\, \overline{2} &\parallel & \overline{1}\vee \overline{2},\ \red{2\vee 3},\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<4-9>{
+1^d\, \overline{2}\, 3 &\parallel & \overline{1}\vee \overline{2},\ 2\vee 3,\ \red{\overline{1}\vee \overline{3}\vee 4},\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<5-9>{
+1^d\, \overline{2}\, 3\, 4 &\parallel & \overline{1}\vee \overline{2},\ 2\vee 3,\ \overline{1}\vee \overline{3}\vee 4,\ \red{2\vee \overline{3}\vee \overline{4}},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Backtrack}) \\[2mm]}
+\onslide<6-9>{
+\overline{1} &\parallel & \overline{1}\vee \overline{2},\ 2\vee 3,\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ \red{1\vee 4} &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<7-9>{
+\overline{1}\, 4 &\parallel & \overline{1}\vee \overline{2},\ 2\vee 3,\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]}
+\onslide<8-9>{
+\overline{1}\, 4\, \overline{3}^d &\parallel & \overline{1}\vee \overline{2},\ \red{2\vee 3},\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<9-9>{
+\overline{1}\, 4\, \overline{3}^d\, 2 &\parallel & \overline{1}\vee \overline{2},\ 2\vee 3,\ \overline{1}\vee \overline{3}\vee 4,\ 2\vee \overline{3}\vee \overline{4},\ 1\vee 4 & & \red{\mbox{Satisfiable}} \\[2mm]}
+
+\end{array}
+\]
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL - adding backjumping}
+\onslide<1-9>{
+\begin{itemize}
+\item Usually the PLP is used only as a pre-processing step
+\item Chronological backtracking (rule {\tt Backtrack}) is replaced by \red{backjumping}
+\end{itemize}}
+\[
+\begin{array}{lclcl}
+\onslide<2-9>{
+\emptyset &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]}
+\onslide<3-9>{
+1^d &\parallel & \red{\overline{1}\vee 2},\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<4-9>{
+1^d\, 2 &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]}
+\onslide<5-9>{
+1^d\, 2\, 3^d &\parallel & \overline{1}\vee 2,\ \red{\overline{3}\vee 4},\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<6-9>{
+1^d\, 2\, 3^d\, 4 &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]}
+\onslide<7-9>{
+1^d\, 2\, 3^d\, 4\, 5^d &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \red{\overline{5}\vee \overline{6}},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]}
+\onslide<8-9>{
+1^d\, 2\, 3^d\, 4\, 5^d \overline{6} &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ \red{6\vee \overline{5}\vee \overline{2}}, &\Longrightarrow& (\mbox{\tt Backtrack}) \\[2mm]}
+\onslide<9-9>{
+1^d\, 2\, 3^d\, 4\, \overline{5} &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, & &  \\[2mm]}
+\end{array}
+\]
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL - adding backjumping}
+\onslide<1-2>{
+\[
+{\footnotesize
+\begin{array}{lclcl}
+\emptyset &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]
+1^d &\parallel & \red{\overline{1}\vee 2},\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& \fbox{(\mbox{\tt Unit Propagate})} \\[2mm]
+1^d\, 2 &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]
+1^d\, 2\, 3^d &\parallel & \overline{1}\vee 2,\ \red{\overline{3}\vee 4},\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+1^d\, 2\, 3^d\, 4 &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& \fbox{(\mbox{\tt Decide})} \\[2mm]
+1^d\, 2\, 3^d\, 4\, 5^d &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \red{\overline{5}\vee \overline{6}},\ 6\vee \overline{5}\vee \overline{2}, &\Longrightarrow& \fbox{(\mbox{\tt Unit Propagate})} \\[2mm]
+1^d\, 2\, 3^d\, 4\, 5^d \overline{6} &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ \red{6\vee \overline{5}\vee \overline{2}}, &\Longrightarrow& (\mbox{\tt Backtrack}) \\[2mm]
+1^d\, 2\, 3^d\, 4\, \overline{5} &\parallel & \overline{1}\vee 2,\ \overline{3}\vee 4,\ \overline{5}\vee \overline{6},\ 6\vee \overline{5}\vee \overline{2}, & &  \\
+\end{array}}
+\]}
+\onslide<2-2>{
+\begin{itemize}
+\item Infer that decision $1^d$ is incompatible with the decision $5^d$, i.e., the formula implies $\overline{1}\vee\overline{5}$. Similarly, it entails $\overline{2}\vee\overline{5}$.
+
+\item \red{Backjump clauses}: their presence would have allowed unit propagation at an earlier decision level
+\item Ex: given $\overline{2}\vee\overline{5}$, backjump to $1^d\, 2\, \overline{5}$
+\end{itemize}}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Backjump rule}
+\small
+\[
+\begin{array}{lclcl}
+\red{\mbox{\tt Backjump:}} \\
+\state{M\, l^d\, N}{F,C}&\Longrightarrow& \state{M\,l'}{F,C} &\mbox{if} &\left\{\begin{array}{l}
+												      M\, l^d\, N\models \neg C,\\
+												      \mbox{there is some clause $C'\vee l'$ s.t.} \\
+												\ \ \ \mbox{$F,C\models C'\vee l'$ and $M\models \neg C'$,}\\    	 											   \ \ \ \mbox{$l'$ is undefined in $M$}\\   				
+											\ \ \  \mbox{$l'$ or $\neg l'$ occurs in $F$ or in $M\, l^d\, N$}								      				           \end{array}\right. \\[2mm]
+\end{array}
+\]
+\begin{itemize}
+\item it goes back more than one decision level
+\item it replaces {\tt Backtrack}
+\item ``implementation problem'': generate small backjump clauses that ``jump'' many decision levels
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Learning backjump clauses}
+\begin{itemize}
+\item most modern DPLL implementations \red{learn} backjump clauses (i.e., add them to the set of learned clauses)
+\begin{itemize}
+	\item prevent further similar conflicts
+	\item when such conflicts are not likely to be found again, the clauses can be removed.
+\end{itemize}
+\end{itemize}
+\[
+\begin{array}{lclcl}
+\red{\mbox{\tt Learn:}} \\
+\state{M}{F}&\Longrightarrow& \state{M}{F,C} &\mbox{if} &\left\{\begin{array}{l}
+												F\models C\\
+												\mbox{each atom of $C$ occurs in $F$ or $M$}															\end{array}\right. \\[2mm]
+\red{\mbox{\tt Forget:}} \\
+\state{M}{F,C}&\Longrightarrow& \state{M}{F} &\mbox{if} &\left\{\begin{array}{l}
+												F\models C\\
+												\end{array}\right. \\[2mm]
+\end{array}
+\]
+\begin{itemize}
+	\item {\tt Learn} is a more general rule that allows other techniques producing consequences of $F$
+	\item their application is limited in practice by the cost of proving the entailments
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Proving termination}
+\begin{theorem}
+Every derivation of DPLL is finite if it contains no infinite sub-derivations consisting of only {\tt Learn} and {\tt Forget}.
+\end{theorem}
+%\begin{itemize}
+%\item Define a \red{well-founded} partial order relation $\prec$ on states $\state{M}{F}$ ($\Box$ is a minimal element)
+%\item given an assignment $N$, $m(N)=nb\_literals(F)-length(N)$ (number of literals ``missing'' in $N$ for $N$ to be total
+%\item Given
+%\[
+%\begin{array}{l}
+%M=M_0 l_1 M_1\ldots l_p M_p,\mbox{ where $l_1$,$\ldots$,$l_p$ are all the decision literals of $M$}\\[2mm]
+%M'=M_0' l_1' M_1'\ldots l_{p'}' M_{p'},\mbox{ where $l_1'$,$\ldots$,$l_{p'}'$ are all the decision literals of $M'$}\\[2mm]
+%\end{array}
+%\]
+%we have that \red{$\state{M'}{F'} \prec \state{M}{F}$} if
+%\[
+%\begin{array}{l}
+%\mbox{(1) there is some $0\leq i\leq p,p'$ such that} \\[2mm]
+%\quad\quad m(M_0)=m(M_0'),\ldots m(M_{i-1})=m(M'_{i-1}), m(M_i') < m(M_i)\mbox{ or}\\[2mm]
+%\mbox{(2) }p<p', m(M_0)=m(M_0'),\ldots m(M_p)=m(M'_p)\mbox{ and }m(M')<m(M) 
+%\end{array}
+%\] 
+%\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Practical implementations and restarts}
+\begin{itemize}
+\item \red{heuristics} for choosing the decision literal when applying {\tt Decide}
+\item \red{restart} the procedure when the search is not making enough progress according to some measure
+\begin{itemize}
+	\item upon each restart, the additional learned clauses will lead the heuristics for {\tt Decide}
+	to behave differently
+	\item without restart, any derivation leading to $\Box$ is equivalent to a tree-like proof by resolution
+	\item with restart, derivations leading to $\Box$ are equivalent to DAG-like proofs, which can be \blue{exponentially
+	more succinct}
+\end{itemize}
+\end{itemize}
+
+\hspace{6mm}
+$
+\begin{array}{lcl}
+\red{\mbox{\tt Restart:}} \\
+\state{M}{F}&\Longrightarrow& \state{\emptyset}{F} 
+\end{array}
+$
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Proving termination}
+\begin{theorem}
+Every derivation of DPLL with {\tt Restart} is finite if it contains no infinite sub-derivations consisting of only {\tt Learn} and {\tt Forget}, and {\tt Restart} has \red{increasing periodicity} in it.
+\end{theorem}
+%\begin{itemize}
+%\item by contradiction, assume that there exists an infinite derivation
+%\item without {\tt Restart}, the first component of a state $\state{M}{F}$ either decreases w.r.t. $\prec$ or remains constant
+%\item no infinite sub-derivations of {\tt Learn} and {\tt Forget} $\limp$ an infinite number of {\tt Restart}
+%\item after {\tt Learn} and {\tt Forget} ``have finished'', the sub-derivations between two applications of {\tt Restart} have length at most $nb\_literals(F)$ $\leadsto$ contradicts the increasing periodicity of {\tt Restart}
+%\end{itemize}
+\end{frame}
+
+\section{DPLL + Theory solvers}
+
+\begin{frame}
+\frametitle{SMT solvers}
+\tableofcontents[currentsection]
+\end{frame}
+
+
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Preliminaries - signature}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item A \red{signature} $\Sigma$ is a finite set of:
+\vspace{2mm}
+\begin{itemize}
+\setlength\itemsep{2mm}
+	\item Function symbols: $\Sigma_F=\{f,g,\ldots\}$
+	\item Predicate symbols: $\Sigma_P=\{p,q,\ldots\}$ ($=$ is a logical symbol not in $\Sigma_P$)
+	\item and an arity function $\pi:\Sigma\flc\Nat$
+\end{itemize}
+\item Function symbols of arity 0 are called \red{constants}
+\item $\cV$ denotes the set of \red{variables} (disjoint from $\Sigma$)
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Preliminaries - terms, atomic formulas}
+\begin{itemize}
+\onslide<1-2>{
+\setlength\itemsep{2mm}
+\item The set $T(\Sigma,\cV)$ of \red{terms} is the smallest set such that:
+\vspace{2mm}
+\begin{itemize}
+	\setlength\itemsep{2mm}
+	\item $\cV\subseteq T(\Sigma,\cV)$
+	\item if $f\in\Sigma_F$, $t_1,\ldots,t_n\in T(\Sigma,\cV)$, and $\pi(f)=n$ then $f(t_1,\ldots,t_n)\in T(\Sigma,\cV)$
+\end{itemize}
+\item The set of \red{ground terms} is defined as $T(\Sigma,\emptyset)$ }
+\onslide<2-2>{
+\item The set of \red{atomic formulas}:
+\vspace{2mm}
+	\begin{itemize}
+	\setlength\itemsep{2mm}
+		\item $true$ and $\mathit{false}$ are atomic formulas
+		\item if $p\in\Sigma_P$, $t_1,\ldots,t_n\in T(\Sigma,\cV)$, and $\pi(p)=n$ then $p(t_1,\ldots,t_n)$ is an atomic formula
+	\end{itemize}
+\item If $t_1,\ldots,t_n$ are ground terms then $p(t_1,\ldots,t_n)$ is called a \red{ground formula}
+\item A \red{literal} is an atomic formula or its negation}
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Preliminaries - formulas}
+\begin{itemize}
+	\setlength\itemsep{2mm}
+\item The set of \red{formulas} over $\cF(\Sigma,\cV)$ is the smallest set such that:
+\vspace{2mm}
+\begin{itemize}
+	\setlength\itemsep{2mm}
+	\item every atomic formula is in $\cF(\Sigma,\cV)$
+	\item if $\varphi_1,\varphi_2\in \cF(\Sigma,\cV)$ then $\neg\varphi_1$, $\varphi_1\land\varphi_2$, $\exists x\sep\varphi_1$, and $\forall x\sep\varphi_1$ are in $\cF(\Sigma,\cV)$
+\end{itemize}
+\item A formula without quantifiers is called \red{quantifier-free}
+\item A variable is \red{free} iff it is not bound by a quantifier
+\item A \red{sentence} is a formula with no free variables
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Preliminaries - models}
+\begin{itemize}
+	\setlength\itemsep{2mm}
+\item A \red{model} is defined as:
+\vspace{2mm}
+	\begin{itemize}
+	\setlength\itemsep{2mm}
+		\item $|M|$ is a set of elements
+		\item function interpretations: $M(f):|M|^n\flc |M|$, for each $f\in\Sigma_F$ with $\pi(f)=n$
+		\item predicate interpretations: $M(p)\subseteq |M|^n$, for each $p\in\Sigma_P$ with $\pi(p)=n$
+		\item variable interpretations: $M(x)\in |M|$, for each $x\in\cV$
+	\end{itemize}
+\item A formula $\varphi$ is \red{true in a model $M$} if it evaluates to $true$ under $M$'s interpretations of signature symbols and variables
+\item A formula $\varphi$ is \red{satisfiable} iff there exists a model $M$ such that $M\models \varphi$
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Preliminaries - theories}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item A \red{(first-order) theory} $\cT$ over a signature $\Sigma$ is a set of (deductively closed)
+sentences over $\Sigma$ and $\cV$
+\item A theory $\cT$ is \red{consistent} iff $\mathit{false}\not\in \cT$
+\item Due to the (semantical) completeness of first-order logic we can view $\cT$ as the class of all models of $\cT$
+\item given $M$ a model of $\cT$, \red{$M\models_\cT \varphi$} iff $M$ satisfies $\varphi$
+\item given $\varphi_1$, $\varphi_2$ formulas, \red{$\varphi_1\models_\cT\varphi_2$} iff any model of $\cT$ that satisfies $\varphi_1$ satisfies also $\varphi_2$
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Satisfiability modulo theories}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item A formula $\varphi(\vec{x})$ is \red{satisfiable in a theory $\cT$} iff $\cT\land \exists\vec{x}\sep\varphi(\vec{x})$ is satisfiable
+\vspace{2mm}
+	\begin{itemize}
+	\setlength\itemsep{2mm}
+		\item i.e., there exists a model $M$ of $\cT$ in which $\varphi(\vec{x})$ evaluates to $true$, 
+		\[
+			M\models_\cT \varphi(\vec{x})
+		\]
+	\end{itemize}
+\item \red{Satisfiability modulo $\cT$ (or $\cT$-satisfiability)} = the problem of checking satisfiability in the theory $\cT$
+\item in the following, we consider problem of satisfiability modulo $\cT$ for \red{quantifier-free formulas}
+\item extending Abstract DPLL over states of the form $\state{M}{F}$, where $M$ is a sequence of atomic formulas (instead of propositional variables)
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL modulo theories}
+{\scriptsize
+\[
+\begin{array}{lclcl}
+\red{\mbox{\tt Unit Propagate:}} \\
+\state{M}{F,C\vee l}&\Longrightarrow& \state{M\,l}{F,C\vee l} &\mbox{if} &\left\{\begin{array}{l}
+														      M\models \neg C\\
+														      \mbox{$l$ is undefined in $M$}																	      \end{array}\right. \\[1mm]
+\red{\mbox{\tt Decide:}} \\
+\state{M}{F}&\Longrightarrow& \state{M\,l^d}{F} &\mbox{if} &\left\{\begin{array}{l}
+												\mbox{$l$ or $\neg l$ occurs in a clause of $F$}\\
+												\mbox{$l$ is undefined in $M$}
+												\end{array}\right. \\[1mm]
+\red{\mbox{\tt Fail:}} \\
+\state{M}{F,C}&\Longrightarrow& \Box &\mbox{if} &\left\{\begin{array}{l}
+											M\models \neg C\\
+											\mbox{$M$ contains no decision literals}															        \end{array}\right. \\[1mm]
+\red{\mbox{\tt Restart:}} \\
+\state{M}{F}&\Longrightarrow& \state{\emptyset}{F}  
+\end{array}
+\]}
+{\small
+\[
+\begin{array}{lclcl}
+\red{\mbox{\tt T-Learn:}} \\
+\state{M}{F}&\Longrightarrow& \state{M}{F,C} &\mbox{if} &\left\{\begin{array}{l}
+												F\blue{\models_\cT}\ C\\
+												\mbox{each atom of $C$ occurs in $F$ or $M$}															\end{array}\right. \\[2mm]
+\red{\mbox{\tt T-Forget:}} \\
+\state{M}{F,C}&\Longrightarrow& \state{M}{F} &\mbox{if} &\left\{\begin{array}{l}
+												F\blue{\models_\cT}\ C\\
+												\end{array}\right. \\[2mm]
+\red{\mbox{\tt T-Backjump:}} \\
+\state{M\, l^d\, N}{F,C}&\Longrightarrow& \state{M\,l'}{F,C} &\mbox{if} &\left\{\begin{array}{l}
+												      M\, l^d\, N\models \neg C,\\
+												      \mbox{there is some clause $C'\vee l'$ s.t.} \\
+												\ \ \ \mbox{$F,C\blue{\models_\cT}\ C'\vee l'$ and $M\models \neg C'$,}\\    	 											   \ \ \ \mbox{$l'$ is undefined in $M$}\\   				
+											\ \ \  \mbox{$l'$ or $\neg l'$ occurs in $F$ or in $M\, l^d\, N$}								      				           \end{array}\right. 
+\end{array}
+\]}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Check satisfiability}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item let $\state{M}{F}$ be a state \red{final} w.r.t. {\tt Decide}, {\tt Fail}, {\tt Unit Propagate}, and {\tt T-Backjump}
+\vspace{2mm}
+	\begin{itemize}
+	\setlength\itemsep{2mm}
+		\item if $M$ is satisfiable in $\cT$ then $F$ is satisfiable in $\cT$
+		\item otherwise, there exists a subset $l_1$,$\ldots$,$l_n$ of $M$ s.t. $\emptyset \models_\cT \neg l_1\vee \ldots\vee \neg l_n$
+			\begin{itemize}
+				\item apply {\tt T-Learn} and {\tt Restart}
+			\end{itemize}
+	\end{itemize}
+\item the same termination arguments hold
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Improvements}
+\begin{itemize}
+\setlength\itemsep{2mm}
+\item Incremental $\cT$-solvers: check $\cT$-inconsistency even in non-final states
+\vspace{2mm}
+	\begin{itemize}
+	\setlength\itemsep{2mm}
+	\item if $M\models_\cT F$ is a state such that $M$ is not satisfiable in $\cT$, apply {\tt T-Learn} and {\tt Restart}
+	\end{itemize}
+\item Online SAT solvers: when $\cT$-inconsistency is detected, apply {\tt Backjump}
+\item Theory propagation: add literals implied by the formula
+\[
+\begin{array}{lclcl}
+\red{\mbox{\tt Theory Propagate:}} \\
+\state{M}{F}&\Longrightarrow& \state{M\,l}{F} &\mbox{if} &\left\{\begin{array}{l}
+												      M\models_\cT l,\\
+												      \mbox{$l$ or $\neg l$ occurs in $F$} \\
+												      \mbox{$l$ is undefined in $M$} 							      								              \end{array}\right. 
+\end{array}
+\]
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL modulo theories - example}
+\onslide<1-7>{
+$
+\begin{array}{lcl}
+p &\equiv& 3<x \\
+q &\equiv& x < 0 \\
+r &\equiv& x < y \\
+s &\equiv& y < 0 \\
+\end{array}
+$}
+
+\vspace{2mm}
+\[
+\begin{array}{lclcl}
+\onslide<2-7>{
+\emptyset &\parallel & \red{p}, q\vee r,s\vee\neg r &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<3-7>{
+p &\parallel & p, q\vee r,s\vee\neg r &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]
+}
+\onslide<4-7>{
+p,q^d &\parallel & p, q\vee r,s\vee\neg r &\Longrightarrow& (\mbox{\tt Decide}) \\[2mm]
+}
+\onslide<5-7>{
+p,q^d,r^d &\parallel & p, q\vee r,\red{s\vee\neg r} &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<6-7>{
+p,q^d,r^d,s &\parallel & p, q\vee r,s\vee\neg r &\Longrightarrow& (\mbox{\tt T-Learn}) \\[2mm]
+&&&&\red{\emptyset\models_\cT \neg (3<x)\vee \neg(x<0)} \\[2mm]
+}
+\onslide<7-7>{
+p,q^d,r^d,s &\parallel & p, q\vee r,s\vee\neg r,\neg p\vee\neg q &\Longrightarrow& (\mbox{\tt Restart}) \\[2mm]
+\emptyset &\parallel & p, q\vee r,s\vee\neg r,\neg p\vee\neg q &&
+}
+\end{array}
+\]
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL modulo theories - example}
+\onslide<1-6>{
+$
+\begin{array}{lcl}
+p &\equiv& 3<x \\
+q &\equiv& x < 0 \\
+r &\equiv& x < y \\
+s &\equiv& y < 0 \\
+\end{array}
+$}
+
+\vspace{2mm}
+\[
+\begin{array}{lclcl}
+\onslide<1-6>{
+\emptyset &\parallel & \red{p}, q\vee r,s\vee\neg r,\neg p\vee\neg q &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<2-6>{
+p &\parallel & p, q\vee r,s\vee\neg r,\red{\neg p\vee\neg q} &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<3-6>{
+p,\neg q &\parallel & p, \red{q\vee r},s\vee\neg r,\neg p\vee\neg q &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<4-6>{
+p,\neg q,r &\parallel & p, q\vee r,\red{s\vee\neg r},\neg p\vee\neg q &\Longrightarrow& (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<5-6>{
+p,\neg q,r,s &\parallel & p, q\vee r,s\vee\neg r,\neg p\vee\neg q &\Longrightarrow& (\mbox{\tt T-Learn}) \\[2mm]
+}
+\end{array}
+\]
+\onslide<5-6>{
+\[
+\red{\emptyset\models_\cT \neg (3<x)\vee \neg(x<y)\vee \neg(y<0)}
+\]}
+\[
+\begin{array}{lclcl}
+\onslide<6-6>{
+p,\neg q,r,s &\parallel & p, q\vee r,s\vee\neg r,\neg p\vee\neg q,\neg p\vee \neg r\vee \neg s &\Longrightarrow& (\mbox{\tt Restart}) \\[2mm]
+\emptyset &\parallel & p, q\vee r,s\vee\neg r,\neg p\vee\neg q,\neg p\vee \neg r\vee \neg s && 
+}
+\end{array}
+\]
+\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{Abstract DPLL modulo theories - example}
+\onslide<1-5>{
+$
+\begin{array}{lcl}
+p &\equiv& 3<x \\
+q &\equiv& x < 0 \\
+r &\equiv& x < y \\
+s &\equiv& y < 0 \\
+\end{array}
+$
+}
+
+\vspace{2mm}
+\[
+\begin{array}{lclcl}
+\onslide<1-5>{
+\emptyset &\parallel & \red{p}, q\vee r,s\vee\neg r,\neg p\vee\neg q,\neg p\vee \neg r\vee \neg s & (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<2-5>{
+p &\parallel & p, q\vee r,s\vee\neg r,\red{\neg p\vee\neg q},\neg p\vee \neg r\vee \neg s & (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<3-5>{
+p,\neg q &\parallel & p, \red{q\vee r},s\vee\neg r,\neg p\vee\neg q,\neg p\vee \neg r\vee \neg s & (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<4-5>{
+p,\neg q,r &\parallel & p, q\vee r,\red{s\vee\neg r},\neg p\vee\neg q,\neg p\vee \neg r\vee \neg s & (\mbox{\tt Unit Propagate}) \\[2mm]
+}
+\onslide<5-5>{
+p,\neg q,r,s &\parallel & p, q\vee r,s\vee\neg r,\neg p\vee\neg q,\neg p\vee \neg r\vee \neg s & (\mbox{\tt Fail}) 
+}
+\end{array}
+\]
+\onslide<5-5>{
+\[
+\red{p,\neg q,r,s \models \neg (\neg p\vee \neg r\vee \neg s)}
+\]
+}
+\end{frame}
+
+%\section{Combination of theories}
+%
+%\begin{frame}
+%\frametitle{SMT solvers}
+%\tableofcontents[currentsection]
+%\end{frame}
+%
+%
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Combination of theories}
+%\begin{itemize}
+%\setlength\itemsep{2mm}
+%\item In practice, we need to reason in several theories at once
+%\item Example: $1\leq i\leq n \limp a[i] = f(i)$
+%\end{itemize}
+%
+%\vspace{3mm}
+%\red{Theory combination:}
+%
+%\vspace{-3mm}
+%\begin{tabular}{ll}
+%\quad \quad & \\
+%&$\Sigma_1$ and $\Sigma_2$ are disjoint signatures: $\Sigma_1\cap\Sigma_2=\emptyset$ ($=$ is a logical symbol) \\[2mm]
+%&$\cT_1$ and $\cT_2$ are theories over $\Sigma_1$ and $\Sigma_2$\\[2mm]
+%&$\cT$ = the set of deductively closed sentences that includes $\cT_1\cup \cT_2$
+%\end{tabular}
+%
+%\vspace{3mm}
+%\blue{
+%Given satisfiability procedures for $\cT_1$ and $\cT_2$, build a satisfiability procedure for $\cT$}
+%\end{frame}
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Consistency of the combined theory}
+%\vspace{3mm}
+%\red{Theory combination:}
+%
+%\vspace{-3mm}
+%\begin{tabular}{ll}
+%\quad \quad & \\
+%&$\Sigma_1$ and $\Sigma_2$ are disjoint signatures: $\Sigma_1\cap\Sigma_2=\emptyset$ \\[2mm]
+%&$\cT_1$ and $\cT_2$ are theories over $\Sigma_1$ and $\Sigma_2$\\[2mm]
+%&$\cT$ = the set of deductively closed sentences that includes $\cT_1\cup \cT_2$
+%\end{tabular}
+%
+%\vspace{3mm}
+%\blue{
+%Is the theory $\cT$ consistent (i.e., $\mathit{false}\not\in\cT$) ?}
+%
+%\end{frame}
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Consistency of the combined theory}
+%\begin{theorem}
+%Let $\cT_1$ and $\cT_2$ be two consistent theories over disjoint signatures $\Sigma_1$ and $\Sigma_2$.
+%Their union is consistent iff there is a cardinal $k$ such that both $\cT_1$ and $\cT_2$ have a model of cardinality $k$.
+%\end{theorem}
+%\begin{proof}
+%($\Rightarrow$) Since $\cT$ is consistent, there exists a model $M$ of $\cT$. 
+%
+%By construction of $\cT$, the projection of $M$ on $\Sigma_i$ is a model of $\cT_i$, $i=1,2$.
+%
+%Both projections have the same cardinality.
+%
+%($\Leftarrow$) Consequence of Craig-Robinson Theorem $\ldots$
+%\end{proof}
+%
+%\end{frame}
+%
+%%Let A and B be sentences such that A j= B. Let L1 be the language consisting
+%%of the symbols which occur in A and let L2 be the language consisting of the symbols which
+%%occur in B. Then there is a sentence  in the language L0 = L1 \ L2 such that A j=  j= B.
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Nelson-Oppen Combination Procedure}
+%\setbeamercolor{prog}{fg=black,bg=white}
+%\begin{center}
+%\begin{beamerboxesrounded}[ht=5cm,center,wd=12cm]{}
+%\red{Input:} $\varphi$ a conjunction of literals over $\Sigma_1\cup\Sigma_2$
+%
+%\vspace{2mm}
+%\begin{description}
+%\item[Purification:] Preserving satisfiability, transform $\varphi$ into $\varphi_1\land\varphi_2$
+%such that $\varphi_i$ uses only symbols in $\Sigma_i$, $i=1,2$ 
+%\item[Interaction:] Guess an equivalence relation over $\cV(\varphi_1)\cap \cV(\varphi_2)$. Express it
+%as a conjunction of literals $\psi$
+%\item[Component procedures:] Use the individual procedures to decide the satisfiability of $\varphi_i\land\psi$, $i=1,2$.
+%\end{description}
+%
+%\vspace{2mm}
+%\red{Output:} If both are satisfiable then return satisfiable. Otherwise, unsatisfiable.
+%\end{beamerboxesrounded}
+%\end{center}
+%\end{frame}
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Nelson-Oppen Combination Procedure - example}
+%\onslide<1-11>{
+%\[
+%\onslide<1-2>{{\color<2-2>{red}{x+2 = y}} \land} f(
+%\onslide*<1-8>{
+%{\color<8-8>{red}
+%read(write(a,x,
+%\onslide*<1-4>{{\color<4-4>{red} 3}}
+%\onslide*<5-11>{u_1}
+%),
+%\onslide*<1-6>{{\color<6-6>{red} y-2}}
+%\onslide*<7-11>{u_2}
+%)}}
+%\onslide*<9-11>{u3}
+%)
+%\neq f(
+%\onslide*<1-10>{{\color<10-10>{red} y-x+1}}
+%\onslide*<11-11>{u_4}
+%)
+%\]}
+%
+%\vspace{4mm}
+%\begin{center}
+%\begin{tabular}{c|c|c}
+%Linear integer\quad\quad\quad & Arrays\quad\quad\quad & EUF\quad\quad\quad \\
+%Arithmetic && \\ \hline 
+%\onslide<3->{$x+2=y$}& \onslide<9->{$u_3=read(write(a,x,u_1),u_2)$} & \onslide<12->{$f(u_3)\neq f(u_4)$}\\
+%\onslide<5->{$u_1=3$}& \onslide<15->{$u_2=x$} & \onslide<15->{$u_2=x$}\\
+%\onslide<7->{$u_2=y-2$}& \onslide<15->{$u_4=u_1$} & \onslide<15->{$u_4=u_1$}\\ 
+%\onslide<11->{$u_4=y-x+1$} & \onslide<16->{{\color<16-17>{red} $u_3=u_1$}} & \onslide<17->{$u_3=u_1$}\\
+%\onslide<13->{{\color<13-15>{red} $u_2=x$}} && \onslide<18->{\red{UNSAT}}\\
+%\onslide<14->{{\color<14-15>{red} $u_4=u_1$}} \\
+%\onslide<17->{$u_3=u_1$} 
+%\end{tabular}
+%\end{center}
+%\end{frame}
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Nelson-Oppen \red{Deterministic} Combination Procedure}
+%\begin{itemize}
+%\onslide<1->{
+%\setlength\itemsep{2mm}
+%\item Instead of \red{guessing}, we can \red{deduce} the shared equalities
+%\item Works for \red{convex} theories
+%	\vspace{2mm}
+%	\begin{itemize}
+%	\setlength\itemsep{2mm}
+%		\item a theory $\cT$ is convex iff for all finite sets of literals $\Gamma$ and for all non-empty disjunctions 
+%		$\bigvee_{i} x_i=y_i$,
+%		\[
+%		\Gamma\models_\cT \bigvee_{i} x_i=y_i \mbox{ iff }\Gamma\models_\cT x_i=y_i,\mbox{ for some $i$}
+%		\]
+%		\item linear rational arithmetic is convex
+%		\item linear integer arithmetic is not convex: $y=1,z=2,1\leq x\leq 2\models x=y\vee x=z$
+%	\end{itemize}
+%\item For non-convex theories deduce \red{disjunctions} of equalities $\leadsto$ not efficient
+%}
+%\onslide<2->{
+%\item \red{Model-based theory combination}
+%	\vspace{2mm}
+%	\begin{itemize}
+%	\setlength\itemsep{2mm}
+%		\item use a candidate model for one of the theories $\cT_i$, and propagate all equalities implied by this models, hoping that the other theories will agree
+%		\item if not, backtrack to fix the model
+%	\end{itemize}
+%}
+%\end{itemize}
+%\end{frame}
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Nelson-Oppen Combination Procedure}
+%\setbeamercolor{prog}{fg=black,bg=white}
+%\begin{beamerboxesrounded}[ht=5cm,center,wd=12cm]{}
+%\red{Input:} $\varphi$ a conjunction of literals over $\Sigma_1\cup\Sigma_2$
+%
+%\vspace{2mm}
+%\begin{description}
+%\item[Purification:] Preserving satisfiability, transform $\varphi$ into $\varphi_1\land\varphi_2$
+%such that $\varphi_i$ uses only symbols in $\Sigma_i$, $i=1,2$ 
+%\item[Interaction:] Guess an equivalence relation over $\cV(\varphi_1)\cap \cV(\varphi_2)$. Express it
+%as a conjunction of literals $\psi$
+%\item[Component procedures:] Use the individual procedures to decide the satisfiability of $\varphi_i\land\psi$, $i=1,2$.
+%\end{description}
+%
+%\vspace{2mm}
+%\red{Output:} If both are satisfiable then return satisfiable. Otherwise, unsatisfiable.
+%\end{beamerboxesrounded}
+%
+%\begin{itemize}
+%\setlength\itemsep{2mm}
+%\item A theory is \red{stably infinite} if every satisfiable quantifier-free formula is satisfiable in an infinite model
+%\end{itemize}
+%
+%\begin{theorem}
+%Let $\cT_1$ and $\cT_2$ be two consistent stably-infinite theories over disjoint signatures $\Sigma_1$ and $\Sigma_2$.
+%A conjunction of literals $\varphi$ over $\Sigma_1\cup\Sigma_2$ is satisfiable iff there exist some $\psi$ such that $\varphi_1\land\psi$ and $\varphi_2\land\psi$ are satisfiable.
+%\end{theorem}
+%\end{frame}
+%
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{Why stably-infinite ?}
+%\begin{itemize}
+%\item Theories that admit only finite model pose problems
+%\end{itemize}
+%\begin{example}
+%\begin{itemize}
+%	\item $\cT_1$=a theory that admits only models of cardinality \red{at most 2}
+%	\item $\cT_2$=a theory that admits models of any cardinality 
+%	\item the combined theory is consistent
+%	\item let \blue{$\varphi:\ f(x)\neq f(y)\land g(x)\neq g(z)\land g(y)\neq g(z)$}
+%	\item $\varphi$ is split into \blue{$\varphi_1:\ f(x)\neq f(y)$} and \blue{$\varphi_2:\ g(x)\neq g(z)\land g(y)\neq g(z)$}
+%	\item possible equivalence classes: $\psi_1:\ x=y$, \blue{$\psi_2:\ x\neq y$}
+%	\item $\varphi_1\land\psi_2$ and $\varphi_2\land\psi_2$ are satisfiable $\leadsto$ \red{conclude $\varphi$ 
+%satisfiable}
+%	\item but, $\varphi$ is \red{unsatisfiable} because $\cT$ as $\cT_1$ admits only models of cardinality at most 2.
+%\end{itemize}
+%\end{example}
+%\end{frame}
+
+%---------------------------------------------------------------------- SLIDE -
+\begin{frame}
+\frametitle{ }
+\begin{center}
+\red{\Huge{The end}}
+\end{center}
+\end{frame}
+
+
+%%---------------------------------------------------------------------- SLIDE -
+%\begin{frame}
+%\frametitle{ }
+%\begin{itemize}
+%\item 
+%\end{itemize}
+%\end{frame}
+
+
+\end{document}
+

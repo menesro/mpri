@@ -1,0 +1,15 @@
+Ken McMillan. Interpolation and SAT-Based Model Checking. Proceedings of CAV 2003. 
+http://www.kenmcmil.com/pubs/CAV03.pdf
+
+Ken McMillan. Lazy Abstraction with Interpolants. Proceedings of CAV 2006.
+http://www.kenmcmil.com/pubs/CAV06.pdf
+
+Leonardo de Moura, Harald Rueß, and Maria Sorea. Bounded Model Checking and Induction: From Refutation to Verification. Proceedings of CAV 2003. http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.140.8972
+
+
+
+
+inter: 21
+k-induction 24, 23, 1, 25
+
+Shachar Itzhaky, Nikolaj Bjørner, Thomas W. Reps, Mooly Sagiv, Aditya V. Thakur. Property-Directed Shape Analysis. Proceedings of CAV 2014.

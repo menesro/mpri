@@ -1,0 +1,8 @@
+15 - finish explaining the construction of the boolean programs 
+20 - the refinement problem => introducing the concept of interpolation
+20 - explaining interpolation for propositional logic => computation that uses an unsatisfiability proof (resolution is complete for refutation -> DPLL)
+- how to do it over theories (we discuss only the quantifier-free case)
+40 - the same idea, but we have to define the kind of proofs we consider => presenting SMT solvers
+10 - show what needs to be adapted -> computing interpolants for theory axioms
+
+1 ora

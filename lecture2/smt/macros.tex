@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Symbols
+
+
+
+\def    \d      {\delta}
+\def    \D      {\Delta}
+\def    \e      {\varepsilon}
+\def    \ee     {\varepsilon}
+\def    \f      {\varphi}
+\def    \Ga     {\Gamma}
+\def	\gets	{\leftarrow}
+\def	\hra	{\hookrightarrow}
+\def    \se     {\subseteq}
+\def	\y	{\gamma}
+
+\def    \cT      {{\cal T}}
+\def    \cV      {{\cal V}}
+
+\def    \A      {{\cal A}}
+\def    \B      {{\cal B}}
+\def	\BA	{{\cal B}\!{\cal A}}
+\def	\BP	{\mbox{{\bf P}}}
+\def    \C      {{\cal C}}
+\def	\gb	{{g_{\cal B}}}
+\def	\gp	{{g_{\cal P}}}
+\def	\Gr	{{\cal G}}
+\def	\E	{E}
+\def	\P	{{\cal P}}
+\def	\RH	{{\it R}}
+\def	\GP	{{\cal H}{\cal P}}
+\def	\VP	{{\cal V}{\cal P}}
+
+\def	\rel	{{\it rel}}
+\def	\trans	{{\it trans}}
+%\def	\eps	{{\it eps}}
+%\def	\pre	{{\it pre}}
+%\def	\prestar{{\pre^*}}
+%\def	\post	{{\it post}}
+%\def	\poststar{{\post^*}}
+
+\def	\inter	{{\it inter}}
+\def	\llbr	{{\rm \{}}
+\def	\rrbr	{{\rm \}}}
+\def	\bebop  {Bebop}
+
+\def  \Act  {{\it Act}}
+\def \Lab  {{\it Lab}}
+\def   \CP    {{\it CP}}
+%\def \Nat {{\bf N}}
+
+
+% Transition relations
+
+\def	\imp	{\Rightarrow}
+\def	\flc	{\rightarrow}
+
+\newcommand{\longimp}{\Longrightarrow}
+\newcommand{\impp}[2]{\mathop{\Longrightarrow}\limits^{\smash{#1}}_{\smash{#2}}}
+\newcommand{\impr}{\mathrel{\smash{\stackrel{r}{\Longrightarrow}}}}
+\newcommand{\impplus}{\mathrel{\smash{\stackrel{+}{\Longrightarrow}}}}
+
+\def	\longhookrightarrow{\lhook\joinrel\relbar\joinrel\rightarrow}
+\def	\Longhookrightarrow{\lhook\joinrel\relbar\joinrel\relbar\joinrel\rightarrow}
+\def	\Longlonghookrightarrow{\lhook\joinrel\relbar\joinrel\relbar\joinrel\relbar\joinrel\relbar\joinrel\rightarrow}
+\def\tup#1{\langle #1 \rangle}
+\def\Rule#1#2{\langle#1\rangle\hookrightarrow\langle#2\rangle}
+\def\Ruleh#1#2#3{\langle#1\rangle\;{\buildrel#2\over\longhookrightarrow}\
+		\langle#3\rangle}
+\def\RuleA#1#2#3{\langle#1\rangle\;{\buildrel#2\over\longhookrightarrow}\
+		\langle#3\rangle}
+\def\Rulesh#1#2#3{\langle#1\rangle\;{\buildrel{\smash{#2}}\over\longhookrightarrow}\
+		\langle#3\rangle}
+\def\RuleH#1#2#3{\mathop{%
+\hbox{\setbox0=\hbox{$\scriptstyle{#1\quad}$}{$%
+\langle#1\rangle%
+\mathrel{\smash{\mathop{\setbox1=\hbox to \wd0{$\lhook\kern-2pt$\rightarrowfill}\ht1=3pt\dp1=-2pt\box1}\limits^{#2}}}%
+                 \langle#3\rangle$}}}}
+\def\RuleSH#1#2#3{\langle#1\rangle\;{\buildrel\smash{#2}\over\Longhookrightarrow}\
+                 \langle#3\rangle}
+\def\RuleFH#1#2#3{\langle#1\rangle\;{\buildrel\smash{#2}\over{\mathrel{\setbox0=\hbox{$\Longhookrightarrow$}\ht0=3pt\box0}}}\langle#3\rangle}
+\def\RuleLH#1#2#3{\langle#1\rangle\;{\buildrel\smash{#2}\over{\mathrel{\setbox0=\hbox{$\Longlonghookrightarrow$}\ht0=3pt\box0}}}\langle#3\rangle}
+
+\def	\overrel#1#2{\mathrel{\mathop{\kern0pt #2}\limits^{#1}}}
+\def	\underrel#1#2{\mathrel{\mathop{\kern0pt #1}\limits_{#2}}}
+\def	\bothrel#1#2#3{\mathrel{\mathop{\kern0pt #2}\limits^{#1}_{#3}}}
+
+\def\by#1{\mathop{{\hbox{\setbox0=\hbox{$\scriptstyle{#1\quad}$}{$%
+\mathrel{\mathop{\setbox1=\hbox to \wd0{\rightarrowfill}\ht1=3pt\dp1=-2pt\box1}\limits^{#1}}%
+$}}}}}
+
+%\def\bbyy#1{\mathop{{\hbox{\setbox0=\hbox{$\scriptstyle{#1\quad}$}{$%
+%\mathrel{\mathop{\setbox1=\hbox to \wd0{\leftarrow}\ht1=3pt\dp1=-2pt\box1}\limits^{#1}}%
+%$}}}}}
+
+\def\newarrow#1{\mathop{{\hbox{\setbox0=\hbox{$\scriptstyle{#1\quad}$}{$%
+\mathrel{\mathop{\setbox1=\hbox to \wd0{\rightarrowfill}\ht1=3pt\dp1=-2pt\box1}\limits^{#1}}%
+$}}}}}
+
+\def\snewarrow#1{\mathop{{\hbox{\setbox0=\hbox{$\scriptstyle{#1\quad}$}{$%
+\mathrel{\smash{\mathop{\setbox1=\hbox to \wd0{\rightarrowfill}\ht1=3pt\dp1=-2pt\box1}\limits^{#1}}}%
+$}}}}}
+
+\def\fnewarrow#1{\mathop{{\hbox{\setbox0=\hbox{$\scriptscriptstyle{#1\quad}$}{$\buildrel{\smash{\>\scriptscriptstyle{#1}\>}}\over{\hbox to \wd0{\rightarrowfill}}$}}}}}
+
+\def\smallarrow#1{\mathop{{\hbox{\setbox0=\hbox{$\scriptstyle{#1\quad}$}{$\buildrel{\,#1\>}\over{\hbox to \wd0{\rightarrowfill}}$}}}}}
+
+\def\Newarrow#1#2{%
+\setbox0=\hbox{$\scriptstyle{#1\quad}$}%
+\mathrel{\mathop{\hbox to \wd0{\rightarrowfill}}\limits^{#1}_{#2}}%
+}
+
+\def\SNewarrow#1#2{%
+\setbox0=\hbox{$\scriptstyle{#1\quad}$}%
+\mathrel{\smash{\mathop{\setbox1=\hbox to \wd0{\rightarrowfill}\ht1=3pt\dp1=-2pt\box1}\limits^{#1}_{#2}}}%
+}
+
+% Boldface gamma
+
+\def\pmb#1{\setbox0=\hbox{#1}%
+        \kern-0.05em\copy0\kern-\wd0
+        \kern.05em\copy0\kern-\wd0
+        \kern-.025em\raise.0433em\box0}
+\def\bfgamma{{\mathord{\hbox{\pmb{$\scriptstyle\gamma$}}}}}
+
+% Algorithms
+
+\newcounter{zeile}
+\newbox\kasten
+\setbox\kasten=\hbox{00}
+\let\graph=\par
+{\catcode`\[=\active\catcode`\>=\active
+\gdef	\addto#1#2{$#1\leftarrow#1\cup\{#2\}$}
+\gdef	\addtrans{{\it add\_trans}}
+\gdef	\fordo#1{[for all] $#1$ [do]}
+\gdef	\while#1{[while] $#1$ [do]}
+\gdef	\ifthen#1{[if] $#1$ [then]}
+\gdef	\endif{[f{}i]}
+\gdef	\od{[od]}
+\gdef\algo{\catcode`\~=\active
+	\catcode`\[=\active\catcode`\>=\active\setcounter{zeile}{0}
+	\def\par{\refstepcounter{zeile}\graph\noindent\kern\wd\kasten%
+		\llap{{\small\thezeile}}\quad}
+	\def[##1]{{\bf##1}}\def~##1~{\mathchar"405B##1\mathchar"505D}
+	\def>{\quad}\obeylines}}
+
+\newcommand{\ol}{\overline}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newfam\cyrfam
+\font\tencyr=wncyr10    \font\ninecyr=wncyr9
+\font\eightcyr=wncyr8   \font\sevencyr=wncyr7
+\font\sixcyr=wncyr6     \font\fivecyr=wncyr5
+
+\textfont\cyrfam=\tencyr
+\scriptfont\cyrfam=\sevencyr
+\scriptscriptfont\cyrfam=\fivecyr
+\def\cyr{\fam\cyrfam\tencyr}
+
+\newcommand{\co}{\langle}
+\newcommand{\cf}{\rangle}
+\newcommand{\Nat}{{\mathbb{N}}}
+%\newcommand{\ra}{\rightarrow}
+%\newcommand{\Ra}{\Rightarrow}
+%\newcommand{\la}{\leftarrow}
+%\newcommand{\La}{\Leftarrow}
+%\newcommand{\lra}{\leftrightarrow}
+%\newcommand{\Lra}{\Leftrightarrow}
+\newcommand{\shu}{\amalg\hspace{-1.3mm}\amalg}
+\newcommand{\open}{\mbox{$[\![$}}
+\newcommand{\close}{\mbox{$]\!]$}}
+%\newcommand{\sh}{\mathrel{\hbox{\ninecyr X}}}
+\newcommand{\mg}{\mathcal{G}}
+\newcommand{\m}[1]{\mathcal{#1}}
+\newcommand{\s}[1]{\stackrel{#1}{\ra}}
+\newcommand{\mopen}{\mbox{$\{\!\!\{$}}
+\newcommand{\mclose}{\mbox{$\}\!\!\}$}}
+\newtheorem{nota}{Notation}[section]
+%\newenvironment{proof}{\noindent {\bf Proof:\,}}{\hfill$\;\;\Box$ \\[1ex]}
+\newenvironment{proofsketch}{\noindent {\bf Proof (Sketch):\,}}{\hfill$\;\;\Box$ \\[1ex]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def \vec#1{\overrightarrow{#1}}
+%\def \vec#1{\mathbf{#1}}
